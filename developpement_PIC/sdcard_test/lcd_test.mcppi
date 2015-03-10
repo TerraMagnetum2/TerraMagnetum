@@ -6,7 +6,7 @@ Value=-1
 [BUILD_TYPE]
 Value=0
 [ACTIVE_TAB]
-Value=lcd_test.c
+Value=..\..\..\..\..\..\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Examples\Development Systems\EASYPIC7\Button\Button.c
 [USE_EEPROM]
 Value=0
 [USE_HEAP]
@@ -26,7 +26,7 @@ ActiveImageIndex=-1
 [OPENED_FILES]
 Count=2
 File0=lcd_test.c
-File1=sdcard_test2.c
+File1=..\..\..\..\..\..\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Examples\Development Systems\EASYPIC7\Button\Button.c
 [EEPROM]
 Count=0
 [ACTIVE_COMMENTS_FILES]
@@ -37,7 +37,7 @@ Count=0
 Count=4
 Path0=C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\defs\
 Path1=C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\uses\P18\
-Path2=C:\Users\TikTik's laptop\Desktop\COURS\TERRA_MAGNETUM_2\developpement_PIC\sdcard_test\
+Path2=C:\Users\tiktik's laptop\Desktop\COURS\TERRA_MAGNETUM_2\developpement_PIC\sdcard_test\
 Path3=C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Packages\FAT32 Library\Uses\
 [HEADER_PATH]
 Count=0

@@ -19,28 +19,62 @@ void init_lcd(){
      TRISB = 0x00;    //DB0-7 en sortie (data)
      TRISC4_bit = 0;  //RS en sortie
 
-     E(1);   //E = 1
+     E(1);
      delay_ms(30);
      LATC4_bit = 0;   //RS = 0
-     PORTB = 0x3C;    //function set
-     E(0);   //E = 0 (envoi le function set)
+     PORTB = 0x22;    //function set
+     E(0);            //(envoi le function set)
      delay_ms(1);
-     E(1);   //E = 1
+     E(1);
      delay_ms(1);
-     PORTB = 0x0F;    //Display on
-     E(0);   //E = 0 (envoi le display)
+     E(0);
      delay_ms(1);
-     E(1);   //E = 1
+     E(1);
      delay_ms(1);
-     PORTB = 0x01;    //Clear
-     E(0);   //E = 0 (envoi le clear)
+     PORTB = 0xCC;
+     E(0);
      delay_ms(1);
-     E(1);   //E = 1
+     E(1);
      delay_ms(1);
-     PORTB = 0x06;    //Entry mode set(increment mode/entire shift off)
-     E(0);   //E = 0 (envoi le entry mode set)
+     PORTB = 0x00;    //Display
+     E(0);
      delay_ms(1);
-     E(1);   //E = 1
+     E(1);
+     delay_ms(1);
+     PORTB = 0xFF;
+     E(0);
+     delay_ms(1);
+     E(1);
+     delay_ms(1);
+     PORTB = 0x00;    //Clear
+     E(0);
+     delay_ms(1);
+     E(1);
+     delay_ms(1);
+     PORTB = 0x11;
+     E(0);
+     delay_ms(2);
+     E(1);
+     delay_ms(1);
+     PORTB = 0x00;    //Entry mode set
+     E(0);
+     delay_ms(1);
+     E(1);
+     delay_ms(1);
+     PORTB = 0x77;
+     E(0);
+     delay_ms(1);
+}
+
+void lcd_clear() {
+     E(1);
+     delay_ms(1);
+     PORTB = 0x00;    //Clear
+     E(0);
+     delay_ms(1);
+     E(1);
+     PORTB = 0x11;
+     E(0);
      delay_ms(1);
 }
 
@@ -51,14 +85,10 @@ void lcd_write(char a) {
      PORTB = a;
      E(0);
      delay_ms(1);
-}
-
-void lcd_clear() {
      E(1);
      delay_ms(1);
-     LATC4_bit = 0;
-     PORTB = 0x01;    //Clear
-     E(0);   //E = 0 (envoi le clear)
+     PORTB = a;
+     E(0);
      delay_ms(1);
 }
 
@@ -71,18 +101,20 @@ void lcd_msg(char *s) {
 }
 
 void display_shiftl() {
-     E(1);
+     LATA0_bit = 1;
      delay_ms(1);
      LATC4_bit = 0;
      PORTB = 0x1B;
-     E(0);
+     LATA0_bit = 0;
      delay_ms(1);
 }
+
+void
 
 void main(){
      int i;
      init_lcd();
-     lcd_msg("abcdefgh12345678");
+     lcd_write('U');
      /*for(i = 0; i < 50; i++) {
              delay_ms(500);
              display_shiftl();

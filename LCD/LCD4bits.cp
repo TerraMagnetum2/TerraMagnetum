@@ -1,4 +1,4 @@
-#line 1 "C:/Users/Quentin/Desktop/MicroC/LCD.c"
+#line 1 "C:/Users/Quentin/Desktop/MicroC/LCD4bits.c"
 
 bit LCD_RS at RC4_bit;
 bit LCD_EN at RA0_bit;
@@ -23,25 +23,59 @@ void init_lcd(){
  E(1);
  delay_ms(30);
  LATC4_bit = 0;
- PORTB = 0x3C;
+ PORTB = 0x22;
  E(0);
  delay_ms(1);
  E(1);
  delay_ms(1);
- PORTB = 0x0F;
  E(0);
  delay_ms(1);
  E(1);
  delay_ms(1);
- PORTB = 0x01;
+ PORTB = 0xCC;
  E(0);
  delay_ms(1);
  E(1);
  delay_ms(1);
- PORTB = 0x06;
+ PORTB = 0x00;
  E(0);
  delay_ms(1);
  E(1);
+ delay_ms(1);
+ PORTB = 0xFF;
+ E(0);
+ delay_ms(1);
+ E(1);
+ delay_ms(1);
+ PORTB = 0x00;
+ E(0);
+ delay_ms(1);
+ E(1);
+ delay_ms(1);
+ PORTB = 0x11;
+ E(0);
+ delay_ms(2);
+ E(1);
+ delay_ms(1);
+ PORTB = 0x00;
+ E(0);
+ delay_ms(1);
+ E(1);
+ delay_ms(1);
+ PORTB = 0x77;
+ E(0);
+ delay_ms(1);
+}
+
+void lcd_clear() {
+ E(1);
+ delay_ms(1);
+ PORTB = 0x00;
+ E(0);
+ delay_ms(1);
+ E(1);
+ PORTB = 0x11;
+ E(0);
  delay_ms(1);
 }
 
@@ -52,13 +86,9 @@ void lcd_write(char a) {
  PORTB = a;
  E(0);
  delay_ms(1);
-}
-
-void lcd_clear() {
  E(1);
  delay_ms(1);
- LATC4_bit = 0;
- PORTB = 0x01;
+ PORTB = a;
  E(0);
  delay_ms(1);
 }
@@ -72,17 +102,19 @@ void lcd_msg(char *s) {
 }
 
 void display_shiftl() {
- E(1);
+ LATA0_bit = 1;
  delay_ms(1);
  LATC4_bit = 0;
  PORTB = 0x1B;
- E(0);
+ LATA0_bit = 0;
  delay_ms(1);
 }
+
+void
 
 void main(){
  int i;
  init_lcd();
- lcd_msg("abcdefgh12345678");
-#line 90 "C:/Users/Quentin/Desktop/MicroC/LCD.c"
+ lcd_write('U');
+#line 122 "C:/Users/Quentin/Desktop/MicroC/LCD4bits.c"
 }

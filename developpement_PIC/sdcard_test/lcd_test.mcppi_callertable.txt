@@ -1,8 +1,15 @@
 main
 	__CC2DW
 	led_init
-	RS
-	E
+	init_lcd
+		RS
+		E
 	lcd_write
 		RS
 		E
+	lcd_clear
+		RS
+		E
+	Button
+		Delay_500us
+	E

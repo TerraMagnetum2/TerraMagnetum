@@ -1,29 +1,14 @@
 /*
  * Project name:
-     Lcd_Test (Demonstration of the LCD library routines)
+     Lcd_EA DOGM162x-A
  * Copyright:
-     (c) Mikroelektronika, 2011.
- * Revision History:
-     20110929:
-       - initial release (FJ);
- * Description:
-     This code demonstrates how to use LCD 4-bit library. LCD is first
-     initialized, then some text is written, then the text is moved.
- * Test configuration:
-     MCU:             PIC18F45K22
-                      http://ww1.microchip.com/downloads/en/DeviceDoc/41412D.pdf
-     dev.board:       easypic7 - 
-                      http://www.mikroe.com/easypic/
-     Oscillator:      HS-PLL 32.0000 MHz, 8.0000 MHz Crystal
-     Ext. Modules:    Character Lcd 2x16
-                      http://www.mikroe.com/store/components/various/
-     SW:              mikroC PRO for PIC
-                      http://www.mikroe.com/mikroc/pic/
- * NOTES:
-     - Turn on Lcd backlight switch SW4.6. (board specific)
-*/
+    PAUL ETIENNEY EI-SE4 sisi
+    
+    */
 
-// Lcd module connections
+bit oldstate;
+    
+    
 sbit LCD_RS at LATB4_bit;
 sbit LCD_EN at LATB5_bit;
 sbit LCD_D4 at LATB0_bit;
@@ -39,12 +24,6 @@ sbit LCD_D6_Direction at TRISB2_bit;
 sbit LCD_D7_Direction at TRISB3_bit;
 // End Lcd module connections
 
-char txt1[] = "mikroElektronika";
-char txt2[] = "EasyPIC7";
-char txt3[] = "Lcd4bit";
-char txt4[] = "example";
-
-char i;                              // Loop variable
 
 void Move_Delay() {                  // Function used for text moving
   Delay_ms(500);                     // You can change the moving speed here
@@ -52,7 +31,7 @@ void Move_Delay() {                  // Function used for text moving
 
 void led_init(){
 TRISD=0x00;
-   PORTD =0x01;
+PORTD =0x01;
 Delay_ms(1000);
 PORTD =0x03;
 Delay_ms(1000);
@@ -71,59 +50,15 @@ Delay_ms(1500);
 PORTD=0x00;
 }
 
+
 void E(unsigned short a){
  LATA0_bit =a;
 }
-
-void RS(unsigned short b){
-LATA1_bit =b;
+void RS(unsigned short a){
+ LATA1_bit =a;
 }
 
-void lcd_write(char c){
-Delay_ms(1);
-RS(1);
-E(1);
-delay_ms(1);
-PORTB = c;
-E(0);
-RS(0);
-}
-
-void lcd_clear(){
-RS(0);
-Delay_ms(10);
-E(1);
-delay_ms(10);
-PORTB = 0x01;          //clear display
-E(0);
-RS(0);
-}
-
-void lcd_setcursor(unsigned short){
-RS(0);
-Delay_ms(10);
-E(1);
-delay_ms(10);
-PORTB = 0x01;          //set line
-E(0);
-RS(0);
-}
-
-void curseur_debut(){
-RS(0);
-Delay_ms(10);
-E(1);
-delay_ms(10);
-PORTB = 0x02;          //curseur qui revient au debut;
-E(0);
-RS(1);
-}
-
-void main(){
- led_init();
-
-TRISB=0x00; //gpio en sortie         --RS = A0        E=A1
-TRISA=0x00;
+void init_lcd(){
 RS(0);  //rs a 0 pour commande
 
 E(1);
@@ -158,13 +93,13 @@ E(0);
 Delay_ms(10);
 E(1);
 delay_ms(10);
-PORTB = 0x38;     //function set
+PORTB = 0b00111000;     //function set      00111000
 E(0);
 
 Delay_ms(10);
 E(1);
 delay_ms(10);
-PORTB = 0x0F;     //Display on, curson on, cursor blink;
+PORTB = 0x0F;     //Display on, curson on, cursor blink;    00001111
 E(0);
 
 Delay_ms(10);
@@ -173,60 +108,98 @@ delay_ms(10);
 PORTB = 0x01;          //clear display
 E(0);
 
+
 Delay_ms(10);
 E(1);
 delay_ms(10);
-PORTB = 0x06;          //cursor auto-increment;
+PORTB = 0b00000110;          //cursor auto-increment;     00000110      entry mode set
 E(0);
 
+ RS(1);
+}
 
-lcd_write('c');
-lcd_write('o');
-lcd_write('u');
-lcd_write('c');
-lcd_write('o');
-lcd_write('u');
-lcd_write(' ');
-lcd_write('t');
-lcd_write('u');
-lcd_write('c');
+void set_cursor(short col, short ligne){
+Delay_ms(1);
+RS(0);
+E(1);
+delay_ms(1);
+PORTB = 0x02;          //curseur qui revient au debut;
+E(0);
+Delay_ms(1);
+E(1);
+delay_ms(1);
+if(ligne ==1)PORTB = 64*ligne + col+128;
+E(0);
+}
 
+void lcd_write(char *c){
+int i=0;
+RS(1);
+while( c[i]!='\0'){
+E(1);
+delay_ms(1);
+PORTB = c[i];
+E(0);
+if(i==15){
+         RS(0);
+         E(1);
+         delay_ms(1);
+         PORTB = 192;
+             E(0);
+             RS(1);
+             }
+Delay_ms(1);
+i++;
+  }
+RS(0);
+
+}
+
+void lcd_clear(){
+RS(0);
+E(1);
+delay_ms(1);
+PORTB = 0x01;          //clear display
+Delay_ms(1);
+E(0);
+}
+
+void curseur_debut(){
 RS(0);
 Delay_ms(10);
 E(1);
 delay_ms(10);
-PORTB = 0x1C;          //curseur qui revient au debut;
+PORTB = 0x02;          //curseur qui revient au debut;
 E(0);
 RS(1);
+}
 
-lcd_write('o');
-lcd_write('u');
-lcd_write('c');
-lcd_write('o');
-lcd_write('u');
-lcd_write(' ');
-lcd_write('t');
-lcd_write('u');
+void main(){
+ led_init();
+ 
+TRISA2_bit = 1;
+TRISA3_bit =1;
+TRISA4_bit =1;         //entree bouton poussoir menu, + et -;
+ 
 
+TRISB=0x00; //gpio en sortie         --les 8 bits du registre correspondent au data envoyé a l'ecran
+TRISA0_bit=0;      //A0 et A1 en sortie correspondant a RS et E
+TRISA1_bit=0;
 
+init_lcd();
+lcd_write("regler le       contraste ...");
+Delay_ms(1000);
+lcd_clear();
+lcd_write("contraste       -#######       +");
 
-
-delay_ms(1000);
-//lcd_clear();
-/*lcd_write('b');
-lcd_write('i');
-lcd_write('e');
-lcd_write('n');
-lcd_write('v');
-lcd_write('e');
-lcd_write('n');
-lcd_write('u');
-lcd_write('e');
-
-//lcd_setcursor(2);
-lcd_write('c');
-lcd_write('o');
-lcd_write('u');*/
-
+do {
+    if (Button(&PORTA, 4, 1, 1)) {               // Detect logical one
+      oldstate = 1;                              // Update flag
+    }
+    if (oldstate && Button(&PORTA, 4, 1, 0)) {   // Detect one-to-zero transition
+      E(1);                              // Invert PORTC
+      oldstate = 0;                              // Update flag
+    }
+  } while(1);
 
 }

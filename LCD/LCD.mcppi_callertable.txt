@@ -1,3 +1,5 @@
 main
 	init_lcd
+		E
 	lcd_write
+		E
