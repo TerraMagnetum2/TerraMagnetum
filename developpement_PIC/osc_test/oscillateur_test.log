@@ -1,0 +1,13 @@
+0	1	mikroCPIC1618.exe -MSF -DBG -pP18F2431 -DL -O11111114 -fo3.2768 -N"C:\Users\TikTik's laptop\Desktop\COURS\TERRA_MAGNETUM_2\developpement_PIC\osc_test\oscillateur_test.mcppi" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\defs\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\uses\P18\" -SP"C:\Users\TikTik's laptop\Desktop\COURS\TERRA_MAGNETUM_2\developpement_PIC\osc_test\" -SP"C:\Users\TikTik's laptop\Desktop\COURS\pic_terra_magnetum\osc_test\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Packages\FAT32 Library\Uses\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Examples\Internal MCU modules\P18F87J60\Timer0 Interrupt\" "code_terra_magnetum.c" "__Lib_Math.mcl" "__Lib_MathDouble.mcl" "__Lib_System.mcl" "__Lib_Delays.mcl" "__Lib_CType.mcl" "__Lib_CString.mcl" "__Lib_Conversions.mcl" "__Lib_Button.mcl" "__Lib_ADC_A_F.mcl" "__Lib_SPI_c547.mcl" "__Lib_Mmc.mcl" "__Lib_MmcFat16.mcl" "__Lib_MmcFat16Constants.mcl"	 
+warning: 0	1501	Specified search path does not exist: 'C:\Users\TikTik's laptop\Desktop\COURS\pic_terra_magnetum\osc_test'	 
+hint: 0	1139	Available RAM: 747 [bytes], Available ROM: 16384 [bytes]	 
+diagnostics: 0	126	All files Preprocessed in 62 ms	 
+diagnostics: 0	122	Compilation Started	code_terra_magnetum.c
+diagnostics: 88	123	Compiled Successfully	code_terra_magnetum.c
+diagnostics: 0	127	All files Compiled in 110 ms	 
+hint: 0	1144	Used RAM (bytes): 17 (2%)  Free RAM (bytes): 730 (98%)	Used RAM (bytes): 17 (2%)  Free RAM (bytes): 730 (98%)
+hint: 0	1144	Used ROM (bytes): 382 (2%)  Free ROM (bytes): 16002 (98%)	Used ROM (bytes): 382 (2%)  Free ROM (bytes): 16002 (98%)
+diagnostics: 0	125	Project Linked Successfully	oscillateur_test.mcppi
+diagnostics: 0	128	Linked in 78 ms	 
+diagnostics: 0	129	Project 'oscillateur_test.mcppi' completed: 328 ms	 
+diagnostics: 0	103	Finished successfully: 03 févr. 2015, 14:26:47	oscillateur_test.mcppi

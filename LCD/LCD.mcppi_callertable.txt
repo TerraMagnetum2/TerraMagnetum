@@ -1,0 +1,3 @@
+main
+	init_lcd
+	lcd_write
